@@ -1,8 +1,10 @@
-import TaskList from './components/TasksList'
+import TaskManager from './components/TaskManager'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 function App() {
   return (
     <>
-      <TaskList />
+      <TaskManager />
     </>
 
   );

@@ -1,0 +1,15 @@
+.task-manager{
+ 
+}
+.task-item {
+    background: #fff;
+    padding: 30px;
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%,-50%);
+    border-radius: 40px;
+    border: 1px solid #00000094;
+}
