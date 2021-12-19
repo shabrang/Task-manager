@@ -3,27 +3,25 @@ import PropTypes from 'prop-types'
 import '../style/task-style.css'
 import Button from '@material-ui/core/Button';
 import Modal from './Modal';
-import TaskDetail from './TaskDetail'
+import CreateTask from './CreateTask'
+import TasksList from './TasksList';
 
-
-const TaskManager = props => {
-    const [tasks, setTasks] = useState([])
+const TaskManager = (props) => {
     const [open, setOpen] = React.useState(false);
 
     const toggleModal = () => {
         setOpen(!open)
     }
 
+    const {tasks} = props
     return (
-        <div className="task-manager m-5">
-            <div className="row header mb-5">
+        <div className="task-manager p-5">
+            <div className="row header mb-5 w-100">
                 <div className="col-md-2">
                     <Button variant="contained" color="primary" onClick={toggleModal}> +</Button>
                     
                         <Modal open={open}>
-                            <TaskDetail/>
-                          
-
+                            <CreateTask onCreateTask={props.onCreateTask}/>
                         </Modal>
                    
                 </div>
@@ -35,8 +33,12 @@ const TaskManager = props => {
             </div>
             <div className="row task-content ">
                 <div className="p-3 border border-secondary rounded">
-                    no task yet !
-
+                    {
+                        tasks && tasks.length>0 ?
+                        <TasksList tasks={tasks}/> :
+                        'no task yet'
+                    }
+                
                 </div>
 
             </div>
