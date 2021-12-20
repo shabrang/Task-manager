@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -8,7 +8,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { createTask } from '../redux/actions/taskAction';
+import { toggleModal } from '../redux/actions/modalAction';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -52,10 +53,11 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const TaskManager = (props) => {
+const CreateTask = (props) => {
 	const classes = useStyles();
 	const [ task, setTask ] = useState({});
-	const [ tasklist, setTaskList ] = useState([]);
+
+	const { onCreateTask, toggleModal } = props;
 
 	const handleChange = (e) => {
 		setTask({
@@ -64,16 +66,15 @@ const TaskManager = (props) => {
 		});
 	};
 
-	const addTask = (e) => {
-		e.preventDefault();
-		props.onCreateTask(task);
+	const addTask = () => {
+		onCreateTask(task);
+		toggleModal();
 	};
 
-	console.log(tasklist);
 	return (
 		<div className="task-item">
 			<div className="row">
-				<form className={classes.root} noValidate autoComplete="off" onSubmit={addTask}>
+				<form className={classes.root}>
 					<TextField
 						name="title"
 						id="standard-basic"
@@ -104,7 +105,7 @@ const TaskManager = (props) => {
 							<FormControlLabel value="Hard" control={<Radio />} label="Hard" />
 						</RadioGroup>
 					</FormControl>
-					<Button variant="contained" color="primary">
+					<Button variant="contained" color="primary" onClick={(e) => addTask(e)}>
 						{' '}
 						Add To Tasks{' '}
 					</Button>
@@ -114,4 +115,8 @@ const TaskManager = (props) => {
 	);
 };
 
-export default TaskManager;
+const mapDispatchToProps = (dispatch) => ({
+	toggleModal: () => dispatch(toggleModal())
+});
+
+export default connect(null, mapDispatchToProps)(CreateTask);

@@ -15,7 +15,7 @@ const initialState = {
 			title: 'task_2',
 			description: 'desc_2',
 			gift: 'gift_2',
-			priority: 'High',
+			priority: 'high',
 			done: true
 		}
 	]
@@ -25,9 +25,18 @@ export const taskReducer = (state = { ...initialState }, action) => {
 	switch (action.type) {
 		case ActionType.CREATE_TASK:
 			return {
-				tasks: state.tasks.concat(action.payload)
+				...state,
+				tasks: [ ...state.tasks, action.payload ]
 			};
-
+		case ActionType.IS_DONE:
+			let index = state.tasks.findIndex((task) => task.id === action.payload.id);
+			if (index > -1) {
+				state.tasks[index].done = true;
+			}
+			return {
+				...state,
+				tasks: [ ...state.tasks ]
+			};
 		default:
 			return state;
 	}
