@@ -8,7 +8,7 @@ const initialState = {
 			description: 'desc_1',
 			gift: 'gift_1',
 			priority: 'low',
-			done: false
+			status: 'started'
 		},
 		{
 			id: 2,
@@ -16,26 +16,34 @@ const initialState = {
 			description: 'desc_2',
 			gift: 'gift_2',
 			priority: 'high',
-			done: true
+			status: 'started'
 		}
-	]
+	],
+	filterDoneTasks: []
 };
 
 export const taskReducer = (state = { ...initialState }, action) => {
+	console.log(state);
 	switch (action.type) {
 		case ActionType.CREATE_TASK:
 			return {
 				...state,
 				tasks: [ ...state.tasks, action.payload ]
 			};
-		case ActionType.IS_DONE:
+		case ActionType.CHANGE_STATUS:
 			let index = state.tasks.findIndex((task) => task.id === action.payload.id);
 			if (index > -1) {
-				state.tasks[index].done = true;
+				state.tasks[index].status = 'done';
 			}
 			return {
 				...state,
 				tasks: [ ...state.tasks ]
+			};
+		case ActionType.FILTER_DONE_TASKS:
+			const doneTasks = state.tasks.filter((task) => task.status === 'done');
+			return {
+				...state,
+				filterDoneTasks: [ ...doneTasks ]
 			};
 		default:
 			return state;

@@ -1,16 +1,21 @@
 import { ActionType } from './constant/action-types';
 import uuid from 'react-uuid';
 
+export const getTasks = () => {
+	return {
+		type: ActionType.GET_TASKS
+	};
+};
 export const createTask = ({ title, description, gift, priority }) => {
 	return {
 		type: ActionType.CREATE_TASK,
 		payload: {
-			id: uuid,
+			id: uuid(),
 			title,
 			description,
 			gift,
 			priority,
-			done: false
+			status: 'started'
 		}
 	};
 };
@@ -25,11 +30,17 @@ export const editTask = (id, params) => {
 	};
 };
 
-export const isDoneTask = (id) => {
+export const changeStatusTask = (id) => {
 	return {
-		type: ActionType.IS_DONE,
+		type: ActionType.CHANGE_STATUS,
 		payload: {
 			id
 		}
+	};
+};
+
+export const setFilterDoneTasks = () => {
+	return {
+		type: ActionType.FILTER_DONE_TASKS
 	};
 };

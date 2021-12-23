@@ -1,6 +1,11 @@
 export const ActionType = {
+	//Task Action Type
+	GET_TASKS: 'GET_TASKS',
 	CREATE_TASK: 'CREATE_TASK',
 	EDIT_TASK: 'EDIT_TASK',
-	IS_DONE: 'IS_DONE',
+	CHANGE_STATUS: 'CHANGE_STATUS',
+	FILTER_DONE_TASKS: 'FILTER_DONE_TASKS',
+
+	//Modal Action Type
 	TOGGLE_MODAL: 'TOGGLE_MODAL'
 };
