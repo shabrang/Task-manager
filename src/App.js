@@ -5,7 +5,7 @@ import TaskManager from './components/TaskManager';
 import Home from './components/Home';
 import { toggleModal } from './redux/actions/modalAction';
 import Modal from './components/Modal';
-import CreateTask from './components/CreateTask';
+import TaskForm from './components/TaskForm';
 
 function App(props) {
 	const { tasks, createTask, toggleModal, open, editTask, clearTaskItem } = props;
@@ -43,10 +43,7 @@ function App(props) {
 				<Home onChangeToggle={onChangeToggle} open={open} />
 			)};
 			<Modal open={open} changeToggle={onChangeToggle}>
-				<CreateTask
-					onCreateTask={(task) => onCreateTask(task)}
-					onEditTask={(id, task) => onEditTask(id, task)}
-				/>
+				<TaskForm onCreateTask={(task) => onCreateTask(task)} onEditTask={(id, task) => onEditTask(id, task)} />
 			</Modal>
 		</div>
 	);

@@ -4,15 +4,16 @@ const initialState = {
 	tasks: [
 		{
 			id: 1,
-			title: 'task_1',
-			description: 'desc_1',
-			gift: 'gift_1',
+			title: 'task number1',
+			description:
+				'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+			gift: 'gift1',
 			priority: 'low',
 			status: 'started'
 		},
 		{
 			id: 2,
-			title: 'task_2',
+			title: 'task number 2',
 			description: 'desc_2',
 			gift: 'gift_2',
 			priority: 'high',
@@ -55,13 +56,11 @@ export const taskReducer = (state = { ...initialState }, action) => {
 		case ActionType.EDIT_TASK:
 			let indexTask = state.tasks.findIndex((task) => task.id === action.payload.id);
 			Object.assign(state.tasks[indexTask], action.payload.params);
-
 			return {
 				...state,
 				tasks: [ ...state.tasks ]
 			};
 		case ActionType.CLEAR_TASK_ITEM:
-			console.log('ssssssssssssssssss');
 			return {
 				...state,
 				taskItem: {}

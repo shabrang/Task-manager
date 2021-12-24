@@ -1,6 +1,5 @@
-.task-manager {}
-
-.task-item {
+.task-item,
+.task-detail {
     background: #fff;
     padding: 30px;
     width: 600px;
@@ -24,4 +23,12 @@
 
 .task-content {
     height: calc(100vh - 180px) !important;
+}
+
+.task-title {
+    cursor: pointer;
+}
+
+.task-detail .description {
+    text-align: justify;
 }

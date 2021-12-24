@@ -3,8 +3,32 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { changeStatusTask, getTask } from '../redux/actions/taskAction';
 import { toggleModal } from '../redux/actions/modalAction';
+import { orange, green } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+	editButton: {
+		color: theme.palette.getContrastText(orange[500]),
+		backgroundColor: orange[500],
+		border: '1px solid black',
+		borderRadius: '5px',
+		'&:hover': {
+			backgroundColor: orange[700]
+		}
+	},
+	doneButton: {
+		color: theme.palette.getContrastText(green[500]),
+		backgroundColor: green[500],
+		border: '1px solid black',
+		borderRadius: '5px',
+		'&:hover': {
+			backgroundColor: green[700]
+		}
+	}
+}));
 
 const Task = (props) => {
+	const classes = useStyles();
 	const { task, changeStatusTask, filter, toggleModal, getTask } = props;
 
 	const handleStatusTask = () => {
@@ -16,13 +40,27 @@ const Task = (props) => {
 		toggleModal();
 	};
 
+	const showDetailTask = () => {
+		props.showDetailTask(task);
+	};
+
+	const renderTextMore = (text) => {
+		if (task.description.length > 30) {
+			return `${task.description.slice(0, 30)} . . .`;
+		}
+		return text;
+	};
+
 	return (
 		<div id={`task_item_${task.id}`} className="m-3">
 			<div className="row">
 				{filter && <h5 className="text-center text-secondary mb-5">Done Tasks !</h5>}
 				<div className="border border-secondary rounded p-3">
 					<div className="d-flex justify-content-between align-items-center  mb-3">
-						<span className="font-weight-bold"> {task.title} </span>
+						<span className="task-title font-weight-bold" onClick={showDetailTask}>
+							{' '}
+							{task.title}{' '}
+						</span>
 						<div className="priority-task d-flex align-items-center">
 							<span className={'priority-title float right'}>{task.priority} </span>
 							<div
@@ -33,14 +71,26 @@ const Task = (props) => {
 						</div>
 					</div>{' '}
 					<div className="d-flex justify-content-between align-items-center">
-						<small className="text-secondary text-small"> {task.description} </small>
+						<small className="text-secondary text-small">{renderTextMore(task.description)}</small>
 						{!filter && (
-							<div>
-								<Button variant="contained" color="primary" className="mx-2" onClick={handleStatusTask}>
+							<div className="d-flex">
+								<Button
+									variant="contained"
+									color="primary"
+									size="small"
+									className={`${classes.doneButton} mx-2`}
+									onClick={handleStatusTask}
+								>
 									{' '}
 									Done Task{' '}
 								</Button>
-								<Button variant="contained" color="primary" onClick={handleEditTask}>
+								<Button
+									variant="contained"
+									color="primary"
+									size="small"
+									className={classes.editButton}
+									onClick={handleEditTask}
+								>
 									Edit Task{' '}
 								</Button>
 							</div>

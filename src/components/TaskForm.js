@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { TextareaAutosize } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -10,7 +11,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { toggleModal } from '../redux/actions/modalAction';
 import { connect } from 'react-redux';
 import { orange } from '@material-ui/core/colors';
-import { withStyles } from '@material-ui/core/styles';
 
 const ColorButton = withStyles((theme) => ({
 	root: {
