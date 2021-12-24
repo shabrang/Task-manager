@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { createTask, editTask } from './redux/actions/taskAction';
+import { createTask, editTask, clearTaskItem } from './redux/actions/taskAction';
 import TaskManager from './components/TaskManager';
 import Home from './components/Home';
 import { toggleModal } from './redux/actions/modalAction';
@@ -8,7 +8,16 @@ import Modal from './components/Modal';
 import CreateTask from './components/CreateTask';
 
 function App(props) {
-	const { tasks, createTask, toggleModal, open, editTask } = props;
+	const { tasks, createTask, toggleModal, open, editTask, clearTaskItem } = props;
+
+	useEffect(
+		() => {
+			if (!open) {
+				clearTaskItem();
+			}
+		},
+		[ tasks, open ]
+	);
 
 	const onCreateTask = (task) => {
 		createTask(task);
@@ -46,7 +55,8 @@ function App(props) {
 const mapDispatchToProps = (dispatch) => ({
 	createTask: (task) => dispatch(createTask(task)),
 	toggleModal: () => dispatch(toggleModal()),
-	editTask: (id, params) => dispatch(editTask(id, params))
+	editTask: (id, params) => dispatch(editTask(id, params)),
+	clearTaskItem: () => dispatch(clearTaskItem())
 });
 
 const mapStateToProps = (state) => {

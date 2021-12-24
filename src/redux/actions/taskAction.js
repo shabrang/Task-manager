@@ -47,3 +47,9 @@ export const setFilterDoneTasks = () => {
 		type: ActionType.FILTER_DONE_TASKS
 	};
 };
+
+export const clearTaskItem = () => {
+	return {
+		type: ActionType.CLEAR_TASK_ITEM
+	};
+};

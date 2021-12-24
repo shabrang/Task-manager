@@ -58,8 +58,13 @@ export const taskReducer = (state = { ...initialState }, action) => {
 
 			return {
 				...state,
-				tasks: [ ...state.tasks ],
-				taskReducer: {}
+				tasks: [ ...state.tasks ]
+			};
+		case ActionType.CLEAR_TASK_ITEM:
+			console.log('ssssssssssssssssss');
+			return {
+				...state,
+				taskItem: {}
 			};
 		default:
 			return state;
