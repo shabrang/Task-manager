@@ -1,6 +1,10 @@
 import Button from '@material-ui/core/Button';
 import { orange, red, green } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
+import { getTask } from '../redux/actions/taskAction';
+import { toggleModal, toggleShowDetail } from '../redux/actions/modalAction';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -40,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskDetail = (props) => {
 	const classes = useStyles();
-	const { task } = props;
+	const { task, toggleModal, getTask, toggleShowDetail } = props;
 
-	const onEditTask = () => {
-		props.onEditTask(task.id, task);
+	const handleEditTask = () => {
+		getTask(task.id);
+		toggleShowDetail();
+		toggleModal();
 	};
 
 	const onDeleteTask = () => {
@@ -73,7 +79,7 @@ const TaskDetail = (props) => {
 				<p>{task.description}</p>
 			</div>
 			<div className={`d-flex ${classes.root}`}>
-				<Button variant="contained" color="primary" className={classes.editButton} Click={onEditTask}>
+				<Button variant="contained" color="primary" className={classes.editButton} Click={handleEditTask}>
 					Edit Task
 				</Button>
 				<Button variant="contained" color="primary" className={classes.doneButton} onClick={onChangeStatusTask}>
@@ -86,5 +92,19 @@ const TaskDetail = (props) => {
 		</div>
 	);
 };
+const mapDispatchToProps = (dispatch) => ({
+	toggleModal: () => dispatch(toggleModal()),
+	getTask: (id) => dispatch(getTask(id)),
+	toggleShowDetail: () => dispatch(toggleShowDetail())
+});
 
-export default TaskDetail;
+TaskDetail.propTypes = {
+	tasks: PropTypes.array,
+	toggleModal: PropTypes.func,
+	getTask: PropTypes.func,
+	toggleShowDetail: PropTypes.func,
+	onDeleteTask: PropTypes.func,
+	onChangeStatusTask: PropTypes.func
+};
+
+export default connect(null, mapDispatchToProps)(TaskDetail);

@@ -5,6 +5,7 @@ import { changeStatusTask, getTask } from '../redux/actions/taskAction';
 import { toggleModal } from '../redux/actions/modalAction';
 import { orange, green } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
 	editButton: {
@@ -107,5 +108,14 @@ const mapDispatchToProps = (dispatch) => ({
 	toggleModal: () => dispatch(toggleModal()),
 	getTask: (id) => dispatch(getTask(id))
 });
+
+Task.propTypes = {
+	task: PropTypes.object,
+	filter: PropTypes.bool,
+	toggleModal: PropTypes.func,
+	getTask: PropTypes.func,
+	changeStatusTask: PropTypes.func,
+	showDetailTask: PropTypes.func
+};
 
 export default connect(null, mapDispatchToProps)(Task);

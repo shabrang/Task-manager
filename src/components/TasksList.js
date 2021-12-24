@@ -4,6 +4,7 @@ import Modal from './Modal';
 import TaskDetail from './TaskDetail';
 import { toggleShowDetail } from '../redux/actions/modalAction';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const TasksList = (props) => {
 	const { tasks, filter, showDetail, toggleShowDetail } = props;
@@ -72,4 +73,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
 	toggleShowDetail: () => dispatch(toggleShowDetail())
 });
+
+TasksList.prototype = {
+	tasks: PropTypes.array,
+	filter: PropTypes.bool,
+	showDetail: PropTypes.bool,
+	toggleShowDetail: PropTypes.func,
+	onEditTask: PropTypes.func,
+	onDeleteTask: PropTypes.func,
+	onChangeStatusTask: PropTypes.func
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(TasksList);

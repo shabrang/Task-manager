@@ -7,13 +7,14 @@ import { toggleModal, toggleShowDetail } from './redux/actions/modalAction';
 import Modal from './components/Modal';
 import TaskForm from './components/TaskForm';
 import './style/task-style.css';
+import PropTypes from 'prop-types';
 
 function App(props) {
 	const {
 		tasks,
+		open,
 		createTask,
 		toggleModal,
-		open,
 		editTask,
 		clearTaskItem,
 		toggleShowDetail,
@@ -90,6 +91,18 @@ const mapStateToProps = (state) => {
 		tasks,
 		open
 	};
+};
+
+App.prototype = {
+	tasks: PropTypes.array,
+	open: PropTypes.bool,
+	toggleModal: PropTypes.func,
+	createTask: PropTypes.func,
+	editTask: PropTypes.func,
+	clearTaskItem: PropTypes.func,
+	changeStatusTask: PropTypes.func,
+	toggleShowDetail: PropTypes.func,
+	deleteTask: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

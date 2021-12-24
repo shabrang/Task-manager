@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { toggleModal } from '../redux/actions/modalAction';
 import { connect } from 'react-redux';
 import { orange } from '@material-ui/core/colors';
+import PropTypes from 'prop-types';
 
 const ColorButton = withStyles((theme) => ({
 	root: {
@@ -149,4 +150,10 @@ const mapDispatchToProps = (dispatch) => ({
 	toggleModal: () => dispatch(toggleModal())
 });
 
+TaskForm.propTypes = {
+	taskItem: PropTypes.object,
+	toggleModal: PropTypes.func,
+	onCreateTask: PropTypes.func,
+	onEditTask: PropTypes.func
+};
 export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);

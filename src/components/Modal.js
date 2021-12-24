@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '@material-ui/core/Modal';
+import PropTypes from 'prop-types';
 
 const ModalTask = (props) => {
 	const { open, changeToggle, children } = props;
@@ -14,4 +15,10 @@ const ModalTask = (props) => {
 		</Modal>
 	);
 };
+
+ModalTask.propTypes = {
+	open: PropTypes.bool,
+	changeToggle: PropTypes.func
+};
+
 export default ModalTask;

@@ -7,49 +7,42 @@ import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import { setFilterDoneTasks } from '../redux/actions/taskAction';
 import { connect } from 'react-redux';
-
+const useStyles = makeStyles((theme) => ({
+	addButtom: {
+		width: '65px',
+		height: '65px',
+		border: '1px solid black',
+		position: 'absolute',
+		right: '55px',
+		bottom: '50px',
+		backgroundColor: 'red',
+		borderRadius: '100%',
+		'&:hover': {
+			backgroundColor: '#a71010'
+		}
+	},
+	allTaskButtom: {
+		width: '160px',
+		border: '1px solid black',
+		position: 'absolute',
+		top: '52px',
+		left: '35px',
+		backgroundColor: 'green',
+		'&:hover': {
+			backgroundColor: 'green'
+		}
+	},
+	doneTaskButtom: {
+		width: '160px',
+		border: '1px solid black',
+		position: 'absolute',
+		top: '52px',
+		left: '35px'
+	}
+}));
 const TaskManager = (props) => {
 	const { tasks, onChangeToggle, setFilterDoneTasks, filterDoneTasks } = props;
 	const [ filter, setFilter ] = useState(false);
-	PropTypes.TaskManager = {
-		toggleModal: () => {},
-		open: Boolean,
-		tasks: []
-	};
-
-	const useStyles = makeStyles((theme) => ({
-		addButtom: {
-			width: '65px',
-			height: '65px',
-			border: '1px solid black',
-			position: 'absolute',
-			right: '55px',
-			bottom: '50px',
-			backgroundColor: 'red',
-			borderRadius: '100%',
-			'&:hover': {
-				backgroundColor: '#a71010'
-			}
-		},
-		allTaskButtom: {
-			width: '160px',
-			border: '1px solid black',
-			position: 'absolute',
-			top: '52px',
-			left: '35px',
-			backgroundColor: 'green',
-			'&:hover': {
-				backgroundColor: 'green'
-			}
-		},
-		doneTaskButtom: {
-			width: '160px',
-			border: '1px solid black',
-			position: 'absolute',
-			top: '52px',
-			left: '35px'
-		}
-	}));
 
 	useEffect(
 		() => {
@@ -127,4 +120,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
 	setFilterDoneTasks: () => dispatch(setFilterDoneTasks())
 });
+
+TaskManager.propTypes = {
+	tasks: PropTypes.array,
+	onChangeToggle: PropTypes.func,
+	setFilterDoneTasks: PropTypes.func,
+	onEditTask: PropTypes.func,
+	onDeleteTask: PropTypes.func,
+	onChangeStatusTask: PropTypes.func
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(TaskManager);

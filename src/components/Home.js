@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { orange } from '@material-ui/core/colors';
+import PropTypes from 'prop-types';
 
 const Home = (props) => {
 	const { onChangeToggle } = props;
@@ -32,6 +33,10 @@ const Home = (props) => {
 			</div>
 		</div>
 	);
+};
+
+Home.propTypes = {
+	onChangeToggle: PropTypes.func
 };
 
 export default Home;
