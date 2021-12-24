@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +9,20 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { toggleModal } from '../redux/actions/modalAction';
 import { connect } from 'react-redux';
+import { orange } from '@material-ui/core/colors';
+import { withStyles } from '@material-ui/core/styles';
 
+const ColorButton = withStyles((theme) => ({
+	root: {
+		color: theme.palette.getContrastText(orange[500]),
+		backgroundColor: orange[500],
+		border: '1px solid black',
+		borderRadius: '8px',
+		'&:hover': {
+			backgroundColor: orange[700]
+		}
+	}
+}))(Button);
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
@@ -57,7 +69,7 @@ const CreateTask = (props) => {
 	const classes = useStyles();
 	const [ task, setTask ] = useState({});
 
-	const { onCreateTask, toggleModal } = props;
+	const { onCreateTask, toggleModal, taskItem, onEditTask } = props;
 
 	const handleChange = (e) => {
 		setTask({
@@ -66,8 +78,13 @@ const CreateTask = (props) => {
 		});
 	};
 
-	const addTask = () => {
-		onCreateTask(task);
+	const addOrUpdateTask = () => {
+		if (Object.keys(taskItem).length > 0) {
+			onEditTask(taskItem.id, task);
+		} else {
+			onCreateTask(task);
+		}
+
 		toggleModal();
 	};
 
@@ -79,6 +96,7 @@ const CreateTask = (props) => {
 						name="title"
 						id="standard-basic"
 						label="Task Title"
+						defaultValue={taskItem.title}
 						variant="outlined"
 						size="small"
 						onChange={handleChange}
@@ -87,6 +105,7 @@ const CreateTask = (props) => {
 						name="description"
 						aria-label="Task Description"
 						minRows={3}
+						defaultValue={taskItem.description}
 						placeholder="Task Description"
 						onChange={handleChange}
 					/>
@@ -95,28 +114,39 @@ const CreateTask = (props) => {
 						id="outlined-basic"
 						label="Gift and KPI for this task !"
 						variant="outlined"
+						defaultValue={taskItem.gift}
 						size="small"
 						onChange={handleChange}
 					/>
 					<FormControl component="fieldset" size="small" fullWidth>
-						<RadioGroup defaultValue="low" aria-label="gender" name="priority" onChange={handleChange}>
-							<FormControlLabel value="Low" control={<Radio />} label="Low" />
-							<FormControlLabel value="Medium" control={<Radio />} label="Medium" />
-							<FormControlLabel value="Hard" control={<Radio />} label="Hard" />
+						<RadioGroup
+							defaultValue={taskItem.priority}
+							aria-label="gender"
+							name="priority"
+							onChange={handleChange}
+						>
+							<FormControlLabel value="low" control={<Radio />} label="Low" />
+							<FormControlLabel value="medium" control={<Radio />} label="Medium" />
+							<FormControlLabel value="high" control={<Radio />} label="High" />
 						</RadioGroup>
 					</FormControl>
-					<Button variant="contained" color="primary" onClick={(e) => addTask(e)}>
-						{' '}
-						Add To Tasks{' '}
-					</Button>
+					<ColorButton variant="contained" color="primary" onClick={(e) => addOrUpdateTask(e)}>
+						{Object.keys(taskItem).length > 0 ? 'Update Task' : 'Create Task'}
+					</ColorButton>
 				</form>
 			</div>
 		</div>
 	);
 };
 
+const mapStateToProps = (state) => {
+	const { taskItem } = state.taskReducer;
+	return {
+		taskItem
+	};
+};
 const mapDispatchToProps = (dispatch) => ({
 	toggleModal: () => dispatch(toggleModal())
 });
 
-export default connect(null, mapDispatchToProps)(CreateTask);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTask);

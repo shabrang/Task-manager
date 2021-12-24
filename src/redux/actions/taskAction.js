@@ -1,9 +1,12 @@
 import { ActionType } from './constant/action-types';
 import uuid from 'react-uuid';
 
-export const getTasks = () => {
+export const getTask = (id) => {
 	return {
-		type: ActionType.GET_TASKS
+		type: ActionType.GET_TASK,
+		payload: {
+			id
+		}
 	};
 };
 export const createTask = ({ title, description, gift, priority }) => {
@@ -20,7 +23,7 @@ export const createTask = ({ title, description, gift, priority }) => {
 	};
 };
 
-export const editTask = (id, params) => {
+export const editTask = (id, params = {}) => {
 	return {
 		type: ActionType.EDIT_TASK,
 		payload: {

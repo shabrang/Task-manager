@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getTasks, createTask } from './redux/actions/taskAction';
+import { createTask, editTask } from './redux/actions/taskAction';
 import TaskManager from './components/TaskManager';
 import Home from './components/Home';
 import { toggleModal } from './redux/actions/modalAction';
@@ -8,23 +8,19 @@ import Modal from './components/Modal';
 import CreateTask from './components/CreateTask';
 
 function App(props) {
-	const { tasks, createTask, toggleModal, open, getTasks, filterDoneTasks } = props;
+	const { tasks, createTask, toggleModal, open, editTask } = props;
 
 	const onCreateTask = (task) => {
 		createTask(task);
 	};
 
-	// useEffect(
-	// 	() => {
-	// 		getTasks();
-	// 	},
-	// 	[ filterDoneTasks ]
-	// );
-
 	const onChangeToggle = () => {
 		toggleModal();
 	};
 
+	const onEditTask = (id, task) => {
+		editTask(id, task);
+	};
 	return (
 		<div>
 			{tasks && tasks.length > 0 ? (
@@ -38,25 +34,27 @@ function App(props) {
 				<Home onChangeToggle={onChangeToggle} open={open} />
 			)};
 			<Modal open={open} changeToggle={onChangeToggle}>
-				<CreateTask onCreateTask={(task) => onCreateTask(task)} />
+				<CreateTask
+					onCreateTask={(task) => onCreateTask(task)}
+					onEditTask={(id, task) => onEditTask(id, task)}
+				/>
 			</Modal>
 		</div>
 	);
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	getTasks: () => dispatch(getTasks()),
 	createTask: (task) => dispatch(createTask(task)),
-	toggleModal: () => dispatch(toggleModal())
+	toggleModal: () => dispatch(toggleModal()),
+	editTask: (id, params) => dispatch(editTask(id, params))
 });
 
 const mapStateToProps = (state) => {
-	const { tasks, filterDoneTasks } = state.taskReducer;
+	const { tasks } = state.taskReducer;
 	const { open } = state.modalReducer;
 	return {
 		tasks,
-		open,
-		filterDoneTasks
+		open
 	};
 };
 

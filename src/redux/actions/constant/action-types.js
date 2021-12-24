@@ -1,6 +1,6 @@
 export const ActionType = {
 	//Task Action Type
-	GET_TASKS: 'GET_TASKS',
+	GET_TASK: 'GET_TASK',
 	CREATE_TASK: 'CREATE_TASK',
 	EDIT_TASK: 'EDIT_TASK',
 	CHANGE_STATUS: 'CHANGE_STATUS',

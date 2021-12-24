@@ -1,18 +1,25 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { changeStatusTask } from '../redux/actions/taskAction';
+import { changeStatusTask, getTask } from '../redux/actions/taskAction';
+import { toggleModal } from '../redux/actions/modalAction';
 
 const Task = (props) => {
-	const { task, changeStatusTask, filter } = props;
+	const { task, changeStatusTask, filter, toggleModal, getTask } = props;
 
 	const handleStatusTask = () => {
 		changeStatusTask(task.id);
 	};
 
+	const handleEditTask = () => {
+		getTask(task.id);
+		toggleModal();
+	};
+
 	return (
 		<div id={`task_item_${task.id}`} className="m-3">
 			<div className="row">
+				{filter && <h5 className="text-center text-secondary mb-5">Done Tasks !</h5>}
 				<div className="border border-secondary rounded p-3">
 					<div className="d-flex justify-content-between align-items-center  mb-3">
 						<span className="font-weight-bold"> {task.title} </span>
@@ -33,7 +40,7 @@ const Task = (props) => {
 									{' '}
 									Done Task{' '}
 								</Button>
-								<Button variant="contained" color="primary">
+								<Button variant="contained" color="primary" onClick={handleEditTask}>
 									Edit Task{' '}
 								</Button>
 							</div>
@@ -46,7 +53,9 @@ const Task = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	changeStatusTask: (id) => dispatch(changeStatusTask(id))
+	changeStatusTask: (id) => dispatch(changeStatusTask(id)),
+	toggleModal: () => dispatch(toggleModal()),
+	getTask: (id) => dispatch(getTask(id))
 });
 
 export default connect(null, mapDispatchToProps)(Task);
