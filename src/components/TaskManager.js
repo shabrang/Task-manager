@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import '../style/task-style.css';
 import Button from '@material-ui/core/Button';
 import TasksList from './TasksList';
 import Header from './Header';
@@ -69,6 +68,18 @@ const TaskManager = (props) => {
 		setFilter(!filter);
 	};
 
+	const onEditTask = (id, task) => {
+		props.onEditTask(id, task);
+	};
+
+	const onDeleteTask = (id) => {
+		props.onDeleteTask(id);
+	};
+
+	const onChangeStatusTask = (id) => {
+		props.onChangeStatusTask(id);
+	};
+
 	const classes = useStyles();
 	return (
 		<div className="task-manager p-5">
@@ -77,7 +88,15 @@ const TaskManager = (props) => {
 			</div>
 			<div className="row task-content ">
 				<div className="p-3 border border-secondary rounded h-100 overflow-auto">
-					<TasksList tasks={filter ? filterDoneTasks : tasks} filter={filter} />
+					<TasksList
+						tasks={filter ? filterDoneTasks : tasks}
+						filter={filter}
+						onEditTask={(id, task) => {
+							onEditTask(id, task);
+						}}
+						onDeleteTask={(id) => onDeleteTask(id)}
+						onChangeStatusTask={(id) => onChangeStatusTask(id)}
+					/>
 				</div>
 
 				<Button variant="contained" color="primary" className={classes.addButtom} onClick={changeToggleModal}>

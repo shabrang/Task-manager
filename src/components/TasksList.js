@@ -2,19 +2,32 @@ import React, { useState } from 'react';
 import Task from './Task';
 import Modal from './Modal';
 import TaskDetail from './TaskDetail';
+import { toggleShowDetail } from '../redux/actions/modalAction';
+import { connect } from 'react-redux';
 
 const TasksList = (props) => {
-	const { tasks, filter } = props;
-	const [ showDetail, setShowDetail ] = useState(false);
+	const { tasks, filter, showDetail, toggleShowDetail } = props;
 	const [ task, setTask ] = useState({});
 
 	const showDetailTask = (task) => {
 		setTask(task);
-		setShowDetail(true);
+		toggleShowDetail();
 	};
 
-	const toggleShowDetail = () => {
-		setShowDetail(!showDetail);
+	const toggle = () => {
+		toggleShowDetail(!showDetail);
+	};
+
+	const onEditTask = (id, task) => {
+		props.onEditTask(id, task);
+	};
+
+	const onDeleteTask = (id) => {
+		props.onDeleteTask(id);
+	};
+
+	const onChangeStatusTask = (id) => {
+		props.onChangeStatusTask(id);
 	};
 
 	return (
@@ -37,11 +50,26 @@ const TasksList = (props) => {
 					<span className="d-block p-3 badge bg-danger border rounded">No task has been done yet. :(</span>
 				</div>
 			)}
-			<Modal open={showDetail} changeToggle={toggleShowDetail}>
-				<TaskDetail task={task} />
+			<Modal open={showDetail} changeToggle={toggle}>
+				<TaskDetail
+					task={task}
+					onEditTask={(id, task) => onEditTask(id, task)}
+					onDeleteTask={(id) => onDeleteTask(id)}
+					onChangeStatusTask={(id) => onChangeStatusTask(id)}
+				/>
 			</Modal>
 		</div>
 	);
 };
 
-export default TasksList;
+const mapStateToProps = (state) => {
+	const { showDetail } = state.modalReducer;
+	return {
+		showDetail
+	};
+};
+
+const mapDispatchToProps = (dispatch) => ({
+	toggleShowDetail: () => dispatch(toggleShowDetail())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(TasksList);

@@ -1,14 +1,25 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { createTask, editTask, clearTaskItem } from './redux/actions/taskAction';
+import { createTask, editTask, clearTaskItem, deleteTask, changeStatusTask } from './redux/actions/taskAction';
 import TaskManager from './components/TaskManager';
 import Home from './components/Home';
-import { toggleModal } from './redux/actions/modalAction';
+import { toggleModal, toggleShowDetail } from './redux/actions/modalAction';
 import Modal from './components/Modal';
 import TaskForm from './components/TaskForm';
+import './style/task-style.css';
 
 function App(props) {
-	const { tasks, createTask, toggleModal, open, editTask, clearTaskItem } = props;
+	const {
+		tasks,
+		createTask,
+		toggleModal,
+		open,
+		editTask,
+		clearTaskItem,
+		toggleShowDetail,
+		deleteTask,
+		changeStatusTask
+	} = props;
 
 	useEffect(
 		() => {
@@ -30,6 +41,16 @@ function App(props) {
 	const onEditTask = (id, task) => {
 		editTask(id, task);
 	};
+
+	const onDeleteTask = (id) => {
+		deleteTask(id);
+		toggleShowDetail();
+	};
+
+	const onChangeStatusTask = (id) => {
+		changeStatusTask(id);
+		toggleShowDetail();
+	};
 	return (
 		<div>
 			{tasks && tasks.length > 0 ? (
@@ -38,6 +59,9 @@ function App(props) {
 					onCreateTask={(task) => onCreateTask(task)}
 					onChangeToggle={onChangeToggle}
 					open={open}
+					onEditTask={(id, task) => onEditTask(id, task)}
+					onDeleteTask={(id) => onDeleteTask(id)}
+					onChangeStatusTask={(id) => onChangeStatusTask(id)}
 				/>
 			) : (
 				<Home onChangeToggle={onChangeToggle} open={open} />
@@ -52,7 +76,10 @@ function App(props) {
 const mapDispatchToProps = (dispatch) => ({
 	createTask: (task) => dispatch(createTask(task)),
 	toggleModal: () => dispatch(toggleModal()),
+	toggleShowDetail: () => dispatch(toggleShowDetail()),
 	editTask: (id, params) => dispatch(editTask(id, params)),
+	deleteTask: (id) => dispatch(deleteTask(id)),
+	changeStatusTask: (id) => dispatch(changeStatusTask(id)),
 	clearTaskItem: () => dispatch(clearTaskItem())
 });
 

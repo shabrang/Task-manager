@@ -1,7 +1,8 @@
 import { ActionType } from '../actions/constant/action-types';
 
 const initialState = {
-	open: false
+	open: false,
+	showDetail: false
 };
 
 export const modalReducer = (state = { ...initialState }, action) => {
@@ -10,6 +11,11 @@ export const modalReducer = (state = { ...initialState }, action) => {
 			return {
 				...state,
 				open: !state.open
+			};
+		case ActionType.TOGGLE_SHOW_DETAIL_TASK:
+			return {
+				...state,
+				showDetail: !state.showDetail
 			};
 		default:
 			return state;

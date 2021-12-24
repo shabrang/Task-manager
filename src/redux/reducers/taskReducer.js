@@ -60,6 +60,13 @@ export const taskReducer = (state = { ...initialState }, action) => {
 				...state,
 				tasks: [ ...state.tasks ]
 			};
+		case ActionType.DELETE_TASK:
+			let indexTaskDeleted = state.tasks.findIndex((task) => task.id === action.payload.id);
+			state.tasks.splice(indexTaskDeleted, 1);
+			return {
+				...state,
+				tasks: [ ...state.tasks ]
+			};
 		case ActionType.CLEAR_TASK_ITEM:
 			return {
 				...state,

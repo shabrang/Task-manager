@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const CreateTask = (props) => {
+const TaskForm = (props) => {
 	const classes = useStyles();
 	const [ task, setTask ] = useState({});
 
@@ -149,4 +149,4 @@ const mapDispatchToProps = (dispatch) => ({
 	toggleModal: () => dispatch(toggleModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTask);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);

@@ -33,6 +33,15 @@ export const editTask = (id, params = {}) => {
 	};
 };
 
+export const deleteTask = (id) => {
+	return {
+		type: ActionType.DELETE_TASK,
+		payload: {
+			id
+		}
+	};
+};
+
 export const changeStatusTask = (id) => {
 	return {
 		type: ActionType.CHANGE_STATUS,

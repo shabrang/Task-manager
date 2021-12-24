@@ -42,6 +42,18 @@ const TaskDetail = (props) => {
 	const classes = useStyles();
 	const { task } = props;
 
+	const onEditTask = () => {
+		props.onEditTask(task.id, task);
+	};
+
+	const onDeleteTask = () => {
+		props.onDeleteTask(task.id);
+	};
+
+	const onChangeStatusTask = () => {
+		props.onChangeStatusTask(task.id);
+	};
+
 	return (
 		<div className="task-detail row">
 			<div className="row">
@@ -61,13 +73,13 @@ const TaskDetail = (props) => {
 				<p>{task.description}</p>
 			</div>
 			<div className={`d-flex ${classes.root}`}>
-				<Button variant="contained" color="primary" className={classes.editButton} Click={console.log()}>
+				<Button variant="contained" color="primary" className={classes.editButton} Click={onEditTask}>
 					Edit Task
 				</Button>
-				<Button variant="contained" color="primary" className={classes.doneButton} onClick={console.log()}>
+				<Button variant="contained" color="primary" className={classes.doneButton} onClick={onChangeStatusTask}>
 					Done Task
 				</Button>
-				<Button variant="contained" color="primary" className={classes.deleteButtom} onClick={console.log()}>
+				<Button variant="contained" color="primary" className={classes.deleteButtom} onClick={onDeleteTask}>
 					Delete Task
 				</Button>
 			</div>

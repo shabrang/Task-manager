@@ -6,3 +6,10 @@ export const toggleModal = () => {
 		payload: {}
 	};
 };
+
+export const toggleShowDetail = () => {
+	return {
+		type: ActionType.TOGGLE_SHOW_DETAIL_TASK,
+		payload: {}
+	};
+};
