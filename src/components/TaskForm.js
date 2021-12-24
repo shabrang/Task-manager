@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -68,9 +68,24 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskForm = (props) => {
 	const classes = useStyles();
-	const [ task, setTask ] = useState({});
-
 	const { onCreateTask, toggleModal, taskItem, onEditTask } = props;
+	const [ task, setTask ] = useState(Object.keys(taskItem).length > 0 ? taskItem : {});
+	const [ formErrors, setFormErrors ] = useState({});
+	const [ isSubmitting, setIsSubmitting ] = useState(false);
+
+	useEffect(
+		() => {
+			if (Object.keys(formErrors).length === 0 && isSubmitting) {
+				if (Object.keys(taskItem).length > 0) {
+					onEditTask(taskItem.id, task);
+				} else {
+					onCreateTask(task);
+				}
+				toggleModal();
+			}
+		},
+		[ formErrors ]
+	);
 
 	const handleChange = (e) => {
 		setTask({
@@ -79,14 +94,22 @@ const TaskForm = (props) => {
 		});
 	};
 
-	const addOrUpdateTask = () => {
-		if (Object.keys(taskItem).length > 0) {
-			onEditTask(taskItem.id, task);
-		} else {
-			onCreateTask(task);
+	const validate = (values) => {
+		const errors = {};
+		if (!values.title) {
+			errors.title = 'please enter title';
 		}
-
-		toggleModal();
+		if (!values.description) {
+			errors.description = 'please  enter description';
+		}
+		if (!values.priority) {
+			errors.gender = 'please enter priority';
+		}
+		return errors;
+	};
+	const addOrUpdateTask = () => {
+		setFormErrors(validate(task));
+		setIsSubmitting(true);
 	};
 
 	return (
@@ -95,13 +118,14 @@ const TaskForm = (props) => {
 				<form className={classes.root}>
 					<TextField
 						name="title"
-						id="standard-basic"
 						label="Task Title"
 						defaultValue={taskItem.title}
 						variant="outlined"
 						size="small"
 						onChange={handleChange}
+						style={formErrors.title && { borderColor: 'red' }}
 					/>
+					{formErrors.title && <span className="text-xs text-danger">{formErrors.title}</span>}
 					<TextareaAutosize
 						name="description"
 						aria-label="Task Description"
@@ -109,28 +133,33 @@ const TaskForm = (props) => {
 						defaultValue={taskItem.description}
 						placeholder="Task Description"
 						onChange={handleChange}
+						style={formErrors.description && { borderColor: 'red' }}
 					/>
+					{formErrors.description && <span className="text-xs text-danger">{formErrors.description}</span>}
+
 					<TextField
 						name="gift"
-						id="outlined-basic"
 						label="Gift and KPI for this task !"
 						variant="outlined"
 						defaultValue={taskItem.gift}
 						size="small"
 						onChange={handleChange}
 					/>
+
 					<FormControl component="fieldset" size="small" fullWidth>
 						<RadioGroup
 							defaultValue={taskItem.priority}
-							aria-label="gender"
+							aria-label="priority"
 							name="priority"
 							onChange={handleChange}
+							className="d-flex"
 						>
 							<FormControlLabel value="low" control={<Radio />} label="Low" />
 							<FormControlLabel value="medium" control={<Radio />} label="Medium" />
 							<FormControlLabel value="high" control={<Radio />} label="High" />
 						</RadioGroup>
 					</FormControl>
+					{formErrors.priority && <span className="text-xs text-danger">{formErrors.priority}</span>}
 					<ColorButton variant="contained" color="primary" onClick={(e) => addOrUpdateTask(e)}>
 						{Object.keys(taskItem).length > 0 ? 'Update Task' : 'Create Task'}
 					</ColorButton>
