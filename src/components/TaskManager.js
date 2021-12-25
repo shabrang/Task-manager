@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import { makeStyles } from '@material-ui/core/styles';
 import TasksList from './TasksList';
 import Header from './Header';
-import { makeStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
+
 import { setFilterDoneTasks } from '../redux/actions/taskAction';
-import { connect } from 'react-redux';
+
 const useStyles = makeStyles((theme) => ({
 	addButtom: {
 		width: '65px',

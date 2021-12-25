@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
 import { TextareaAutosize } from '@material-ui/core';
+import { orange } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { toggleModal } from '../redux/actions/modalAction';
-import { connect } from 'react-redux';
-import { orange } from '@material-ui/core/colors';
-import PropTypes from 'prop-types';
 
 const ColorButton = withStyles((theme) => ({
 	root: {
@@ -152,7 +152,7 @@ const TaskForm = (props) => {
 							aria-label="priority"
 							name="priority"
 							onChange={handleChange}
-							className="d-flex"
+							className="select-priority"
 						>
 							<FormControlLabel value="low" control={<Radio />} label="Low" />
 							<FormControlLabel value="medium" control={<Radio />} label="Medium" />

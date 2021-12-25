@@ -1,10 +1,10 @@
-import Button from '@material-ui/core/Button';
-import { orange, red, green } from '@material-ui/core/colors';
-import { makeStyles } from '@material-ui/core/styles';
-import { getTask } from '../redux/actions/taskAction';
-import { toggleModal, toggleShowDetail } from '../redux/actions/modalAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import { orange, red, green } from '@material-ui/core/colors';
+import { getTask } from '../redux/actions/taskAction';
+import { toggleModal, toggleShowDetail } from '../redux/actions/modalAction';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

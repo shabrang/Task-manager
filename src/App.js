@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { createTask, editTask, clearTaskItem, deleteTask, changeStatusTask } from './redux/actions/taskAction';
 import TaskManager from './components/TaskManager';
 import Home from './components/Home';
@@ -7,7 +8,6 @@ import { toggleModal, toggleShowDetail } from './redux/actions/modalAction';
 import Modal from './components/Modal';
 import TaskForm from './components/TaskForm';
 import './style/task-style.css';
-import PropTypes from 'prop-types';
 
 function App(props) {
 	const {

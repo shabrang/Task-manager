@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Task from './Task';
 import Modal from './Modal';
 import TaskDetail from './TaskDetail';
 import { toggleShowDetail } from '../redux/actions/modalAction';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 const TasksList = (props) => {
 	const { tasks, filter, showDetail, toggleShowDetail } = props;

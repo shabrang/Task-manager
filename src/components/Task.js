@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeStatusTask, getTask } from '../redux/actions/taskAction';
-import { toggleModal } from '../redux/actions/modalAction';
+import Button from '@material-ui/core/Button';
 import { orange, green } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { changeStatusTask, getTask } from '../redux/actions/taskAction';
+import { toggleModal } from '../redux/actions/modalAction';
 
 const useStyles = makeStyles((theme) => ({
 	editButton: {

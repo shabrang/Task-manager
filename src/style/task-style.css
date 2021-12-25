@@ -32,3 +32,8 @@
 .task-detail .description {
     text-align: justify;
 }
+
+.select-priority {
+    flex-direction: row !important;
+    justify-content: space-between;
+}
