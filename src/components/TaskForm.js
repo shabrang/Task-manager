@@ -117,19 +117,20 @@ const TaskForm = (props) => {
 			<div className="row">
 				<form className={classes.root}>
 					<TextField
+						error={formErrors.title}
 						name="title"
 						label="Task Title"
 						defaultValue={taskItem.title}
 						variant="outlined"
 						size="small"
 						onChange={handleChange}
-						style={formErrors.title && { borderColor: 'red' }}
 					/>
 					{formErrors.title && <span className="text-xs text-danger">{formErrors.title}</span>}
 					<TextareaAutosize
 						name="description"
 						aria-label="Task Description"
 						minRows={3}
+						className="p-2"
 						defaultValue={taskItem.description}
 						placeholder="Task Description"
 						onChange={handleChange}
@@ -148,6 +149,7 @@ const TaskForm = (props) => {
 
 					<FormControl component="fieldset" size="small" fullWidth>
 						<RadioGroup
+							error={formErrors.priority}
 							defaultValue={taskItem.priority}
 							aria-label="priority"
 							name="priority"
