@@ -58,7 +58,7 @@ const Task = (props) => {
 				{filter && <h5 className="text-center text-secondary mb-5">Done Tasks !</h5>}
 				<div className="border border-secondary rounded p-3">
 					<div className="d-flex justify-content-between align-items-center  mb-3">
-						<span className="task-title font-weight-bold" onClick={showDetailTask}>
+						<span className="task-title font-weight-bold" onClick={!filter ? showDetailTask : null}>
 							{' '}
 							{task.title}{' '}
 						</span>
