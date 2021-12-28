@@ -82,9 +82,17 @@ const TaskDetail = (props) => {
 				<Button variant="contained" color="primary" className={classes.editButton} onClick={handleEditTask}>
 					Edit Task
 				</Button>
-				<Button variant="contained" color="primary" className={classes.doneButton} onClick={onChangeStatusTask}>
-					Done Task
-				</Button>
+				{task.status !== 'done' && (
+					<Button
+						variant="contained"
+						color="primary"
+						className={classes.doneButton}
+						onClick={onChangeStatusTask}
+					>
+						Done Task
+					</Button>
+				)}
+
 				<Button variant="contained" color="primary" className={classes.deleteButtom} onClick={onDeleteTask}>
 					Delete Task
 				</Button>
