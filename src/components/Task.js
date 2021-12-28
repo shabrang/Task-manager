@@ -46,8 +46,8 @@ const Task = (props) => {
 	};
 
 	const renderTextMore = (text) => {
-		if (task.description.length > 30) {
-			return `${task.description.slice(0, 30)} . . .`;
+		if (text.length > 30) {
+			return `${text.slice(0, 30)} . . .`;
 		}
 		return text;
 	};
