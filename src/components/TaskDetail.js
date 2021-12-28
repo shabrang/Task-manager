@@ -79,7 +79,7 @@ const TaskDetail = (props) => {
 				<p>{task.description}</p>
 			</div>
 			<div className={`d-flex ${classes.root}`}>
-				<Button variant="contained" color="primary" className={classes.editButton} Click={handleEditTask}>
+				<Button variant="contained" color="primary" className={classes.editButton} onClick={handleEditTask}>
 					Edit Task
 				</Button>
 				<Button variant="contained" color="primary" className={classes.doneButton} onClick={onChangeStatusTask}>
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 TaskDetail.propTypes = {
-	tasks: PropTypes.array,
+	task: PropTypes.object,
 	toggleModal: PropTypes.func,
 	getTask: PropTypes.func,
 	toggleShowDetail: PropTypes.func,
